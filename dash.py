@@ -81,8 +81,8 @@ with one_col:
 with two_col:
 	h2 = st.subheader('Option 2: Steers')
 	hd_2 = st.slider('Head used',min_value = 0,value=hd_hf+1,max_value=4500)
-	sp_now = st.slider('Steer price per head now',min_value = 0.5*st_pr1,value=st_pr1,max_value=2*st_pr1)
-	sp_later = st.slider('Steer price per head now',min_value = 0.5*st_pr2,value=st_pr2,max_value=2*st_pr2)
+	sp_now = st.slider('Steer price under weight',min_value = 0.5*st_pr1,value=st_pr1,max_value=2*st_pr1)
+	sp_later = st.slider('Steer price full weight',min_value = 0.5*st_pr2,value=st_pr2,max_value=2*st_pr2)
 
 
 	st_tot_cost = (sp_later-sp_now)*hd_2
