@@ -53,6 +53,8 @@ def get_data():
 
     return df
 
+
+
 hd_hf = 3500
 kg_pd = 0.9
 ag_rate = 1.8
@@ -67,34 +69,44 @@ base_est = ag_costs(hd_hf,kg_pd,ag_rate,ag_time,fr)
 
 widths = [3,3,5]
 one_col, two_col, three_col= st.columns(widths)
+# hd_1 = st.slider('Number of animals',min_value = 0,value=hd_hf,max_value=4500)
+
 
 with one_col:
-	h1 = st.subheader('Option 1: Agistment')
-	hd_1 = st.slider('Head used',min_value = 0,value=hd_hf,max_value=4500)
+	h1 = st.subheader('Option 1: Weaner Heifer Agistment')
+	
+
 	kg = st.slider('kg gain per day',min_value = 0.5*kg_pd,value=kg_pd,max_value=2*kg_pd)
 	agr = st.slider('agistment rate per kg',min_value = 0.5*ag_rate,value=ag_rate,max_value=2*ag_rate)
 	agp = st.slider('agistment period',min_value = 0.5*ag_time,value=ag_time,max_value=2*ag_time)
 	fr8 = st.slider('freight rate',min_value = 0.5*fr,value=fr,max_value=2*fr)
 
-	ag_tot_cost = ag_costs(hd_1, kg, agr, agp, fr8)
+	
 
 with two_col:
-	h2 = st.subheader('Option 2: Steers')
-	hd_2 = st.slider('Head used',min_value = 0,value=hd_hf+1,max_value=4500)
+	h2 = st.subheader('Option 2: Sell Steers Now')
+	# hd_1 = st.slider('Number of Animals',min_value = 0,value=hd_hf+1,max_value=4500)
 	sp_now = st.slider('Steer price under weight',min_value = 0.5*st_pr1,value=st_pr1,max_value=2*st_pr1)
 	sp_later = st.slider('Steer price full weight',min_value = 0.5*st_pr2,value=st_pr2,max_value=2*st_pr2)
 
 
-	st_tot_cost = (sp_later-sp_now)*hd_2
+	
 
 
-df = pd.DataFrame({
-    'Option': ['Agistment', 'Steers'],
-    'Total Cost': [ag_tot_cost, st_tot_cost]
-})
 with three_col:
 	h3 = st.subheader('Relative Costs')
-	st.bar_chart(df.set_index('Option'))
+	hd_1 = st.slider('Number of animals',min_value = 0,value=hd_hf,max_value=4500)
+	ag_tot_cost = ag_costs(hd_1, kg, agr, agp, fr8)
+	st_tot_cost = (sp_later-sp_now)*hd_1
+
+	df = pd.DataFrame({
+	    'Option': ['Agistment', 'Steers','Difference'],
+	    'Total Cost': [ag_tot_cost, st_tot_cost,ag_tot_cost-st_tot_cost]
+	})
+
+	st.bar_chart(df,x='Option')
+	# st.slider('Number of animals',hd_1)
+
 
 	h4=st.subheader('Steer Prices')
 	data_df = get_data()
