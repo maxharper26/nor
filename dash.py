@@ -4,7 +4,7 @@ import numpy as np
 import requests
 from datetime import datetime,timedelta
 import json
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 st.title('Waverly Station Drought Plan')
 
